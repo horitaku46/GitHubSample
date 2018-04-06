@@ -28,6 +28,20 @@ final class SearchRepositoryViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        keyboardObserver.willShow
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { [weak self] _ in
+                self?.searchBar.setShowsCancelButton(true, animated: true)
+            })
+            .disposed(by: disposeBag)
+
+        keyboardObserver.willHide
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { [weak self] _ in
+                self?.searchBar.setShowsCancelButton(false, animated: true)
+            })
+            .disposed(by: disposeBag)
+
         Session.send(GitHubAPI.SearchRepositories(query: "rxswift")) {
             switch $0 {
             case .success(let response):
