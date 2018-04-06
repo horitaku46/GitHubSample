@@ -42,6 +42,13 @@ final class SearchRepositoryViewController: UIViewController {
             })
             .disposed(by: disposeBag)
 
+        searchBar.rx.cancelButtonClicked
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { [weak self] in
+                self?.searchBar.resignFirstResponder()
+            })
+            .disposed(by: disposeBag)
+
         Session.send(GitHubAPI.SearchRepositories(query: "rxswift")) {
             switch $0 {
             case .success(let response):
