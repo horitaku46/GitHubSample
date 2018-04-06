@@ -7,10 +7,24 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 import APIKit
 
 final class SearchRepositoryViewController: UIViewController {
 
+    @IBOutlet weak var searchBar: SearchRepositoryBar!
+
+    @IBOutlet weak var tableView: UITableView! {
+        didSet {
+            tableView.keyboardDismissMode = .onDrag
+        }
+    }
+
+    private let keyboardObserver = KeyboardObserver()
+
+    private let disposeBag = DisposeBag()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
