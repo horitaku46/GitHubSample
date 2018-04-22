@@ -1,4 +1,6 @@
 github "ReactiveX/RxSwift" "4.1.2"
 github "RxSwiftCommunity/Action" "3.5.2"
+github "RxSwiftCommunity/RxDataSources" "3.0.2"
 github "antitypical/Result" "3.2.4"
 github "ishkawa/APIKit" "3.2.1"
+github "onevcat/Kingfisher" "4.7.0"

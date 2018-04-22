@@ -1,6 +1,10 @@
 # Reactive
 github "ReactiveX/RxSwift"
 github "RxSwiftCommunity/Action"
+github "RxSwiftCommunity/RxDataSources"
 
 # Network
 github "ishkawa/APIKit"
+
+# Image Cache
+github "onevcat/Kingfisher"

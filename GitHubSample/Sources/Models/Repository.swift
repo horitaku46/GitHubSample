@@ -9,13 +9,21 @@
 import Foundation
 
 struct Repository: Decodable {
+    let avatarUrlStr: String
     let fullName: String
+    let description: String
     let language: String?
-    let url: String
+    let stargazersCount: Int
+    let forksCount: Int
+    let htmlUrlStr: String
 
     private enum CodingKeys: String, CodingKey {
-        case fullName = "full_name"
+        case avatarUrlStr    = "avatar_url"
+        case fullName        = "full_name"
+        case description
         case language
-        case url
+        case stargazersCount = "stargazers_count"
+        case forksCount      = "forks_count"
+        case htmlUrlStr      = "html_url"
     }
 }
