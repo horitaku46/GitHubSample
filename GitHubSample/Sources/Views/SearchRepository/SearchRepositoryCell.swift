@@ -19,14 +19,14 @@ final class SearchRepositoryCell: UITableViewCell {
     @IBOutlet weak var repositoryNameLabel: UILabel! {
         didSet {
             repositoryNameLabel.textColor = UIColor.GitHub.blueText
-            repositoryNameLabel.font = .systemFont(ofSize: 21, weight: .heavy)
+            repositoryNameLabel.font = .systemFont(ofSize: 20, weight: .heavy)
             repositoryNameLabel.textAlignment = .left
         }
     }
 
     @IBOutlet weak var repositoryDescLabel: UILabel! {
         didSet {
-            repositoryDescLabel.textColor = .lightText
+            repositoryDescLabel.textColor = .darkText
             repositoryDescLabel.font = .systemFont(ofSize: 12)
             repositoryDescLabel.textAlignment = .left
             repositoryDescLabel.numberOfLines = 0
@@ -36,21 +36,20 @@ final class SearchRepositoryCell: UITableViewCell {
     @IBOutlet weak var repositoryLangLabel: UILabel! {
         didSet {
             repositoryLangLabel.textColor = .darkText
-            repositoryLangLabel.font = .boldSystemFont(ofSize: 15)
+            repositoryLangLabel.font = .systemFont(ofSize: 15, weight: .heavy)
         }
     }
 
     @IBOutlet weak var repositoryStarLabel: UILabel! {
         didSet {
             repositoryStarLabel.textColor = .darkText
-            repositoryStarLabel.font = .boldSystemFont(ofSize: 15)
+            repositoryStarLabel.font = .systemFont(ofSize: 15, weight: .heavy)
         }
     }
-
     @IBOutlet weak var repositoryForkLabel: UILabel! {
         didSet {
             repositoryForkLabel.textColor = .darkText
-            repositoryForkLabel.font = .boldSystemFont(ofSize: 15)
+            repositoryForkLabel.font = .systemFont(ofSize: 15, weight: .heavy)
         }
     }
 }

@@ -1,6 +1,5 @@
 # Reactive
 github "ReactiveX/RxSwift"
-github "RxSwiftCommunity/Action"
 github "RxSwiftCommunity/RxDataSources"
 
 # Network

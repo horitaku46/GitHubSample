@@ -12,12 +12,17 @@ final class SearchRepositoryBar: UISearchBar {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.delegate = self
+        configure()
     }
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        self.delegate = self
+        configure()
+    }
+
+    private func configure() {
+        delegate = self
+        placeholder = "Input repository name"
     }
 }
 

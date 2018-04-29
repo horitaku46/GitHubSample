@@ -14,19 +14,21 @@ import APIKit
 final class SearchRepositoryViewController: UIViewController {
 
     @IBOutlet weak var searchBar: SearchRepositoryBar!
+    @IBOutlet weak var tableView: UITableView!
 
-    @IBOutlet weak var tableView: UITableView! {
-        didSet {
-            tableView.keyboardDismissMode = .onDrag
-        }
-    }
-
+    private lazy var dataSource: SearchRepositoryViewDataSource = {
+        .init(viewModel: viewModel)
+    }()
+    private lazy var viewModel: SearchRepositoryViewModel = {
+        .init(searchText: searchBar.rx.text.orEmpty)
+    }()
     private let keyboardObserver = KeyboardObserver()
-
     private let disposeBag = DisposeBag()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        dataSource.configure(tableView: tableView)
 
         keyboardObserver.willShow
             .observeOn(MainScheduler.instance)
@@ -49,7 +51,7 @@ final class SearchRepositoryViewController: UIViewController {
             })
             .disposed(by: disposeBag)
 
-        Session.send(GitHubAPI.SearchRepositories(query: "rxswift")) {
+        Session.send(GitHubAPI .SearchRepositories(query: "rxswift")) {
             switch $0 {
             case .success(let response):
                 print(response.items)

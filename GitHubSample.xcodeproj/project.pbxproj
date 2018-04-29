@@ -7,10 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		611876C9208EE86000A0B45F /* SearchRepositoryViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 611876C8208EE86000A0B45F /* SearchRepositoryViewDataSource.swift */; };
+		611876CB208EF06600A0B45F /* UITableViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 611876CA208EF06600A0B45F /* UITableViewExtension.swift */; };
+		611876CF208EF27E00A0B45F /* NSObjectProtocolExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 611876CE208EF27E00A0B45F /* NSObjectProtocolExtension.swift */; };
+		611876D1208EF33E00A0B45F /* Nibable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 611876D0208EF33E00A0B45F /* Nibable.swift */; };
+		611876D3208F53E200A0B45F /* Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 611876D2208F53E200A0B45F /* Reusable.swift */; };
+		611876D5208F550800A0B45F /* CellNibable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 611876D4208F550800A0B45F /* CellNibable.swift */; };
 		612CA15E208470990030683F /* SearchRepositoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 612CA15D208470990030683F /* SearchRepositoryCell.swift */; };
 		612CA160208470B90030683F /* SearchRepositoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 612CA15F208470B90030683F /* SearchRepositoryCell.xib */; };
 		613885D8206BD449004B7C56 /* SearchRepositoryBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 613885D7206BD449004B7C56 /* SearchRepositoryBar.swift */; };
 		613885DC206BD47E004B7C56 /* SearchRepositoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 613885DB206BD47E004B7C56 /* SearchRepositoryViewModel.swift */; };
+		619C779220948115004ED484 /* Kingfisher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 619C778F20948114004ED484 /* Kingfisher.framework */; };
+		619C779320948115004ED484 /* RxDataSources.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 619C779020948114004ED484 /* RxDataSources.framework */; };
+		619C779420948115004ED484 /* Differentiator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 619C779120948114004ED484 /* Differentiator.framework */; };
+		619C77972095A15D004ED484 /* SearchRepositorySectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 619C77962095A15C004ED484 /* SearchRepositorySectionModel.swift */; };
 		61DE4EDE2077262E009B0A17 /* KeyboardObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61DE4EDD2077262E009B0A17 /* KeyboardObserver.swift */; };
 		61DE4EE0207741BC009B0A17 /* OptionalExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61DE4EDF207741BC009B0A17 /* OptionalExtension.swift */; };
 		61DE4EE22077425C009B0A17 /* ObservableExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61DE4EE12077425C009B0A17 /* ObservableExtension.swift */; };
@@ -53,10 +63,20 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		611876C8208EE86000A0B45F /* SearchRepositoryViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRepositoryViewDataSource.swift; sourceTree = "<group>"; };
+		611876CA208EF06600A0B45F /* UITableViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewExtension.swift; sourceTree = "<group>"; };
+		611876CE208EF27E00A0B45F /* NSObjectProtocolExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSObjectProtocolExtension.swift; sourceTree = "<group>"; };
+		611876D0208EF33E00A0B45F /* Nibable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Nibable.swift; sourceTree = "<group>"; };
+		611876D2208F53E200A0B45F /* Reusable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reusable.swift; sourceTree = "<group>"; };
+		611876D4208F550800A0B45F /* CellNibable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellNibable.swift; sourceTree = "<group>"; };
 		612CA15D208470990030683F /* SearchRepositoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRepositoryCell.swift; sourceTree = "<group>"; };
 		612CA15F208470B90030683F /* SearchRepositoryCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchRepositoryCell.xib; sourceTree = "<group>"; };
 		613885D7206BD449004B7C56 /* SearchRepositoryBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRepositoryBar.swift; sourceTree = "<group>"; };
 		613885DB206BD47E004B7C56 /* SearchRepositoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRepositoryViewModel.swift; sourceTree = "<group>"; };
+		619C778F20948114004ED484 /* Kingfisher.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Kingfisher.framework; path = Carthage/Build/iOS/Kingfisher.framework; sourceTree = "<group>"; };
+		619C779020948114004ED484 /* RxDataSources.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxDataSources.framework; path = Carthage/Build/iOS/RxDataSources.framework; sourceTree = "<group>"; };
+		619C779120948114004ED484 /* Differentiator.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Differentiator.framework; path = Carthage/Build/iOS/Differentiator.framework; sourceTree = "<group>"; };
+		619C77962095A15C004ED484 /* SearchRepositorySectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRepositorySectionModel.swift; sourceTree = "<group>"; };
 		61DE4EDD2077262E009B0A17 /* KeyboardObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardObserver.swift; sourceTree = "<group>"; };
 		61DE4EDF207741BC009B0A17 /* OptionalExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionalExtension.swift; sourceTree = "<group>"; };
 		61DE4EE12077425C009B0A17 /* ObservableExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableExtension.swift; sourceTree = "<group>"; };
@@ -92,6 +112,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				619C779220948115004ED484 /* Kingfisher.framework in Frameworks */,
+				619C779320948115004ED484 /* RxDataSources.framework in Frameworks */,
+				619C779420948115004ED484 /* Differentiator.framework in Frameworks */,
 				61F2BA372069F25000A208D7 /* Result.framework in Frameworks */,
 				61F2BA382069F25000A208D7 /* RxCocoa.framework in Frameworks */,
 				61F2BA392069F25000A208D7 /* APIKit.framework in Frameworks */,
@@ -167,6 +190,9 @@
 		61F2BA322069F25000A208D7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				619C779120948114004ED484 /* Differentiator.framework */,
+				619C778F20948114004ED484 /* Kingfisher.framework */,
+				619C779020948114004ED484 /* RxDataSources.framework */,
 				61F2BA352069F25000A208D7 /* APIKit.framework */,
 				61F2BA332069F25000A208D7 /* Result.framework */,
 				61F2BA342069F25000A208D7 /* RxCocoa.framework */,
@@ -219,10 +245,12 @@
 		61F2BA412069F9A500A208D7 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				611876CE208EF27E00A0B45F /* NSObjectProtocolExtension.swift */,
 				61F2BA63206A5C2A00A208D7 /* SessionExtension.swift */,
 				61DE4EDF207741BC009B0A17 /* OptionalExtension.swift */,
 				61DE4EE12077425C009B0A17 /* ObservableExtension.swift */,
 				61F51461208C68EA00A2A0AE /* UIColorExtension.swift */,
+				611876CA208EF06600A0B45F /* UITableViewExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -249,6 +277,9 @@
 			isa = PBXGroup;
 			children = (
 				61F2BA4B2069FA7300A208D7 /* SearchRepository */,
+				611876D0208EF33E00A0B45F /* Nibable.swift */,
+				611876D2208F53E200A0B45F /* Reusable.swift */,
+				611876D4208F550800A0B45F /* CellNibable.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -258,6 +289,8 @@
 			children = (
 				61F2BA4E2069FAAC00A208D7 /* SearchRepositoryViewController.storyboard */,
 				61F2BA4C2069FA9800A208D7 /* SearchRepositoryViewController.swift */,
+				611876C8208EE86000A0B45F /* SearchRepositoryViewDataSource.swift */,
+				619C77962095A15C004ED484 /* SearchRepositorySectionModel.swift */,
 				613885DB206BD47E004B7C56 /* SearchRepositoryViewModel.swift */,
 			);
 			path = SearchRepository;
@@ -441,6 +474,9 @@
 				"$(SRCROOT)/Carthage/Build/iOS/Result.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/RxCocoa.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/RxSwift.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/RxDataSources.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Differentiator.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Kingfisher.framework",
 			);
 			name = "Carthage copy-frameworks";
 			outputPaths = (
@@ -456,14 +492,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				611876D5208F550800A0B45F /* CellNibable.swift in Sources */,
 				61F2BA4D2069FA9800A208D7 /* SearchRepositoryViewController.swift in Sources */,
 				61DE4EE22077425C009B0A17 /* ObservableExtension.swift in Sources */,
 				61F51462208C68EA00A2A0AE /* UIColorExtension.swift in Sources */,
+				611876CF208EF27E00A0B45F /* NSObjectProtocolExtension.swift in Sources */,
+				619C77972095A15D004ED484 /* SearchRepositorySectionModel.swift in Sources */,
+				611876D3208F53E200A0B45F /* Reusable.swift in Sources */,
 				613885D8206BD449004B7C56 /* SearchRepositoryBar.swift in Sources */,
 				61DE4EDE2077262E009B0A17 /* KeyboardObserver.swift in Sources */,
 				61F2BA60206A429A00A208D7 /* SearchRepositoriesResponse.swift in Sources */,
 				612CA15E208470990030683F /* SearchRepositoryCell.swift in Sources */,
 				61F2BA64206A5C2A00A208D7 /* SessionExtension.swift in Sources */,
+				611876CB208EF06600A0B45F /* UITableViewExtension.swift in Sources */,
+				611876C9208EE86000A0B45F /* SearchRepositoryViewDataSource.swift in Sources */,
+				611876D1208EF33E00A0B45F /* Nibable.swift in Sources */,
 				61F2BA5E206A393E00A208D7 /* GitHubAPI.swift in Sources */,
 				61F2BA5A2069FE4400A208D7 /* DecodableDataParser.swift in Sources */,
 				61F2BA62206A42CF00A208D7 /* GitHubRequest.swift in Sources */,
