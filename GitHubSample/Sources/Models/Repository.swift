@@ -55,7 +55,7 @@ extension Repository: IdentifiableType {
     typealias Identity = Int
 
     var identity: Int {
-        return 0
+        return id
     }
 }
 

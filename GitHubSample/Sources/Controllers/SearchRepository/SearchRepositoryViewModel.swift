@@ -24,7 +24,7 @@ final class SearchRepositoryViewModel {
             .debounce(0.3, scheduler: MainScheduler.instance)
             .distinctUntilChanged()
             .subscribe(onNext: {
-                print($0)
+                print("searchText:'\($0)'")
             })
             .disposed(by: disposeBag)
     }

@@ -51,7 +51,7 @@ final class SearchRepositoryViewController: UIViewController {
             })
             .disposed(by: disposeBag)
 
-        Session.send(GitHubAPI .SearchRepositories(query: "rxswift")) {
+        Session.send(GitHubAPI.SearchRepositories(query: "rxswift", page: 0)) {
             switch $0 {
             case .success(let response):
                 print(response.items)

@@ -13,14 +13,21 @@ final class GitHubAPI {
     private init() {}
 
     struct SearchRepositories: GitHubRequest {
+        let query: String
+        let page: Int
+
         typealias Response = SearchRepositoriesResponse
 
-        let method: HTTPMethod = .get
-        let path: String = "/search/repositories"
-        var parameters: Any? {
-            return ["q": query, "page": 1]
+        var method: HTTPMethod {
+            return .get
         }
 
-        let query: String
+        var path: String {
+            return "/search/repositories"
+        }
+
+        var parameters: Any? {
+            return ["q": query, "page": page]
+        }
     }
 }
