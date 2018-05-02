@@ -13,7 +13,7 @@ struct Repository {
     let id: Int
     let avatarUrlStr: String
     let fullName: String
-    let description: String
+    let description: String?
     let language: String?
     let stargazersCount: Int
     let forksCount: Int
@@ -40,7 +40,7 @@ extension Repository: Decodable {
         let values      = try decoder.container(keyedBy: CodingKeys.self)
         id              = try values.decode(Int.self, forKey: .id)
         fullName        = try values.decode(String.self, forKey: .fullName)
-        description     = try values.decode(String.self, forKey: .description)
+        description     = try? values.decode(String.self, forKey: .description)
         language        = try? values.decode(String.self, forKey: .language)
         stargazersCount = try values.decode(Int.self, forKey: .stargazersCount)
         forksCount      = try values.decode(Int.self, forKey: .forksCount)
@@ -61,6 +61,6 @@ extension Repository: IdentifiableType {
 
 extension Repository: Equatable {
     static func ==(lhs: Repository, rhs: Repository) -> Bool {
-        return lhs == rhs
+        return lhs.id == rhs.id
     }
 }

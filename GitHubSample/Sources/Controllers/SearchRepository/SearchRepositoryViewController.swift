@@ -50,14 +50,5 @@ final class SearchRepositoryViewController: UIViewController {
                 self?.searchBar.resignFirstResponder()
             })
             .disposed(by: disposeBag)
-
-        Session.send(GitHubAPI.SearchRepositories(query: "rxswift", page: 0)) {
-            switch $0 {
-            case .success(let response):
-                print(response.items)
-            case .failure(let error):
-                print(error.localizedDescription)
-            }
-        }
     }
 }

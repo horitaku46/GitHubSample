@@ -10,6 +10,27 @@ import UIKit
 import RxSwift
 import RxDataSources
 
+struct SearchRepositorySectionModel {
+    var repositories: [Repository]
+}
+
+extension SearchRepositorySectionModel: AnimatableSectionModelType {
+    typealias Item = Repository
+
+    var identity: String {
+        return "noSection"
+    }
+
+    var items: [Repository] {
+        return repositories
+    }
+
+    init(original: SearchRepositorySectionModel, items: [Item]) {
+        self = original
+        self.repositories = items
+    }
+}
+
 final class SearchRepositoryViewDataSource: NSObject {
 
     private let viewModel: SearchRepositoryViewModel
@@ -26,28 +47,18 @@ final class SearchRepositoryViewDataSource: NSObject {
         tableView.registerCell(SearchRepositoryCell.self)
 
         let dataSource = RxTableViewSectionedAnimatedDataSource<SearchRepositorySectionModel>(
-            configureCell: { dataSource, tableView, indexPath, item in
+            configureCell: { _, tableView, indexPath, reposiory in
                 let cell = tableView.dequeueReusableCell(SearchRepositoryCell.self, for: indexPath)
+                cell.configure(repository: reposiory)
                 return cell
             }
         )
 
-        let sections = [SearchRepositorySectionModel(repositories:
-            [Repository(id: 0, avatarUrlStr: "", fullName: "A", description: "a", language: "swift", stargazersCount: 0, forksCount: 0, htmlUrlStr: ""),
-             Repository(id: 1, avatarUrlStr: "", fullName: "B", description: "b", language: "swift", stargazersCount: 0, forksCount: 0, htmlUrlStr: ""),
-             Repository(id: 2, avatarUrlStr: "", fullName: "C", description: "c", language: "swift", stargazersCount: 0, forksCount: 0, htmlUrlStr: ""),
-             Repository(id: 3, avatarUrlStr: "", fullName: "D", description: "d", language: "swift", stargazersCount: 0, forksCount: 0, htmlUrlStr: ""),
-             Repository(id: 4, avatarUrlStr: "", fullName: "E", description: "e", language: "swift", stargazersCount: 0, forksCount: 0, htmlUrlStr: ""),
-             Repository(id: 5, avatarUrlStr: "", fullName: "F", description: "f", language: "swift", stargazersCount: 0, forksCount: 0, htmlUrlStr: ""),
-             Repository(id: 6, avatarUrlStr: "", fullName: "G", description: "g", language: "swift", stargazersCount: 0, forksCount: 0, htmlUrlStr: ""),
-             Repository(id: 7, avatarUrlStr: "", fullName: "H", description: "h", language: "swift", stargazersCount: 0, forksCount: 0, htmlUrlStr: ""),
-             Repository(id: 8, avatarUrlStr: "", fullName: "I", description: "i", language: "swift", stargazersCount: 0, forksCount: 0, htmlUrlStr: "")])]
-
-        Observable.just(sections)
+        viewModel.repositories
+            .flatMap { repositories -> Observable<[SearchRepositorySectionModel]> in
+                return .of([SearchRepositorySectionModel(repositories: repositories)])
+            }
             .bind(to: tableView.rx.items(dataSource: dataSource))
             .disposed(by: disposeBag)
-
-//        tableView.rx.setDelegate(self)
-//            .disposed(by: disposeBag)
     }
 }

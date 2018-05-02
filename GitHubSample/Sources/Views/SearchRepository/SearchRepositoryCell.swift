@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 final class SearchRepositoryCell: UITableViewCell {
 
@@ -46,10 +47,21 @@ final class SearchRepositoryCell: UITableViewCell {
             repositoryStarLabel.font = .systemFont(ofSize: 15, weight: .heavy)
         }
     }
+
     @IBOutlet weak var repositoryForkLabel: UILabel! {
         didSet {
             repositoryForkLabel.textColor = .darkText
             repositoryForkLabel.font = .systemFont(ofSize: 15, weight: .heavy)
         }
+    }
+
+    func configure(repository: Repository) {
+        avatarImageView.kf.setImage(with: URL(string: repository.avatarUrlStr),
+                                    options: [.transition(.fade(0.2))])
+        repositoryNameLabel.text = repository.fullName
+        repositoryDescLabel.text = repository.description
+        repositoryLangLabel.text = repository.language
+        repositoryStarLabel.text = String(repository.stargazersCount)
+        repositoryForkLabel.text = String(repository.forksCount)
     }
 }

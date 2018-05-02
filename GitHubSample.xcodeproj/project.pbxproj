@@ -21,7 +21,6 @@
 		619C779220948115004ED484 /* Kingfisher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 619C778F20948114004ED484 /* Kingfisher.framework */; };
 		619C779320948115004ED484 /* RxDataSources.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 619C779020948114004ED484 /* RxDataSources.framework */; };
 		619C779420948115004ED484 /* Differentiator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 619C779120948114004ED484 /* Differentiator.framework */; };
-		619C77972095A15D004ED484 /* SearchRepositorySectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 619C77962095A15C004ED484 /* SearchRepositorySectionModel.swift */; };
 		61DE4EDE2077262E009B0A17 /* KeyboardObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61DE4EDD2077262E009B0A17 /* KeyboardObserver.swift */; };
 		61DE4EE0207741BC009B0A17 /* OptionalExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61DE4EDF207741BC009B0A17 /* OptionalExtension.swift */; };
 		61DE4EE22077425C009B0A17 /* ObservableExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61DE4EE12077425C009B0A17 /* ObservableExtension.swift */; };
@@ -78,7 +77,6 @@
 		619C778F20948114004ED484 /* Kingfisher.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Kingfisher.framework; path = Carthage/Build/iOS/Kingfisher.framework; sourceTree = "<group>"; };
 		619C779020948114004ED484 /* RxDataSources.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxDataSources.framework; path = Carthage/Build/iOS/RxDataSources.framework; sourceTree = "<group>"; };
 		619C779120948114004ED484 /* Differentiator.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Differentiator.framework; path = Carthage/Build/iOS/Differentiator.framework; sourceTree = "<group>"; };
-		619C77962095A15C004ED484 /* SearchRepositorySectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRepositorySectionModel.swift; sourceTree = "<group>"; };
 		61DE4EDD2077262E009B0A17 /* KeyboardObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardObserver.swift; sourceTree = "<group>"; };
 		61DE4EDF207741BC009B0A17 /* OptionalExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionalExtension.swift; sourceTree = "<group>"; };
 		61DE4EE12077425C009B0A17 /* ObservableExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableExtension.swift; sourceTree = "<group>"; };
@@ -294,7 +292,6 @@
 				61F2BA4E2069FAAC00A208D7 /* SearchRepositoryViewController.storyboard */,
 				61F2BA4C2069FA9800A208D7 /* SearchRepositoryViewController.swift */,
 				611876C8208EE86000A0B45F /* SearchRepositoryViewDataSource.swift */,
-				619C77962095A15C004ED484 /* SearchRepositorySectionModel.swift */,
 				613885DB206BD47E004B7C56 /* SearchRepositoryViewModel.swift */,
 			);
 			path = SearchRepository;
@@ -502,7 +499,6 @@
 				61DE4EE22077425C009B0A17 /* ObservableExtension.swift in Sources */,
 				61F51462208C68EA00A2A0AE /* UIColorExtension.swift in Sources */,
 				611876CF208EF27E00A0B45F /* NSObjectProtocolExtension.swift in Sources */,
-				619C77972095A15D004ED484 /* SearchRepositorySectionModel.swift in Sources */,
 				611876D3208F53E200A0B45F /* Reusable.swift in Sources */,
 				613885D8206BD449004B7C56 /* SearchRepositoryBar.swift in Sources */,
 				61DE4EDE2077262E009B0A17 /* KeyboardObserver.swift in Sources */,
