@@ -17,7 +17,6 @@
 		612CA160208470B90030683F /* SearchRepositoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 612CA15F208470B90030683F /* SearchRepositoryCell.xib */; };
 		613885D8206BD449004B7C56 /* SearchRepositoryBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 613885D7206BD449004B7C56 /* SearchRepositoryBar.swift */; };
 		613885DC206BD47E004B7C56 /* SearchRepositoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 613885DB206BD47E004B7C56 /* SearchRepositoryViewModel.swift */; };
-		6198D76020989F8A001C2EC4 /* Action.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6198D75F20989F8A001C2EC4 /* Action.framework */; };
 		619C779220948115004ED484 /* Kingfisher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 619C778F20948114004ED484 /* Kingfisher.framework */; };
 		619C779320948115004ED484 /* RxDataSources.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 619C779020948114004ED484 /* RxDataSources.framework */; };
 		619C779420948115004ED484 /* Differentiator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 619C779120948114004ED484 /* Differentiator.framework */; };
@@ -73,7 +72,6 @@
 		612CA15F208470B90030683F /* SearchRepositoryCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchRepositoryCell.xib; sourceTree = "<group>"; };
 		613885D7206BD449004B7C56 /* SearchRepositoryBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRepositoryBar.swift; sourceTree = "<group>"; };
 		613885DB206BD47E004B7C56 /* SearchRepositoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRepositoryViewModel.swift; sourceTree = "<group>"; };
-		6198D75F20989F8A001C2EC4 /* Action.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Action.framework; path = Carthage/Build/iOS/Action.framework; sourceTree = "<group>"; };
 		619C778F20948114004ED484 /* Kingfisher.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Kingfisher.framework; path = Carthage/Build/iOS/Kingfisher.framework; sourceTree = "<group>"; };
 		619C779020948114004ED484 /* RxDataSources.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxDataSources.framework; path = Carthage/Build/iOS/RxDataSources.framework; sourceTree = "<group>"; };
 		619C779120948114004ED484 /* Differentiator.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Differentiator.framework; path = Carthage/Build/iOS/Differentiator.framework; sourceTree = "<group>"; };
@@ -112,7 +110,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6198D76020989F8A001C2EC4 /* Action.framework in Frameworks */,
 				619C779220948115004ED484 /* Kingfisher.framework in Frameworks */,
 				619C779320948115004ED484 /* RxDataSources.framework in Frameworks */,
 				619C779420948115004ED484 /* Differentiator.framework in Frameworks */,
@@ -191,7 +188,6 @@
 		61F2BA322069F25000A208D7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				6198D75F20989F8A001C2EC4 /* Action.framework */,
 				619C779120948114004ED484 /* Differentiator.framework */,
 				619C778F20948114004ED484 /* Kingfisher.framework */,
 				619C779020948114004ED484 /* RxDataSources.framework */,
@@ -478,7 +474,6 @@
 				"$(SRCROOT)/Carthage/Build/iOS/RxDataSources.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Differentiator.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Kingfisher.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/Action.framework",
 			);
 			name = "Carthage copy-frameworks";
 			outputPaths = (

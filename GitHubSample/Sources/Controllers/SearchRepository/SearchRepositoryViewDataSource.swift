@@ -42,7 +42,7 @@ final class SearchRepositoryViewDataSource: NSObject {
 
     func configure(tableView: UITableView) {
         tableView.keyboardDismissMode = .onDrag
-        tableView.estimatedRowHeight = 90
+        tableView.estimatedRowHeight = 100
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.registerCell(SearchRepositoryCell.self)
 

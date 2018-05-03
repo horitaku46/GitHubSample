@@ -10,49 +10,51 @@ import Foundation
 import RxSwift
 import RxCocoa
 import APIKit
-import Action
 
 final class SearchRepositoryViewModel {
 
     var repositories: Observable<[Repository]> {
-        return loadAction.elements
-            .filter { !$0.isEmpty }
+        return _repositories.asObservable()
     }
 
     var error: Observable<Error> {
-        return loadAction.errors
-            .flatMap { error -> Observable<Error> in
-            switch error {
-            case .underlyingError(let error):
-                return .of(error)
-            case .notEnabled:
-                return .empty()
-            }
-        }
+        return _error.asObservable()
     }
 
-    private let loadAction: Action<(String, Int), [Repository]>
+    private let _repositories = BehaviorRelay<[Repository]>(value: [])
+    private let _error = PublishSubject<Error>()
     private let page = BehaviorRelay<Int>(value: 0)
     private let disposeBag = DisposeBag()
 
     init(session: Session = .shared,
          searchText: ControlProperty<String>) {
 
-        loadAction = Action {
-            let request = GitHubAPI.SearchRepositories(query: $0, page: $1)
-            return session.rx
-                .response(request)
-                .map { $0.items }
-        }
-
-        let query = searchText
+        let searchTrigger = searchText
             .debounce(0.3, scheduler: MainScheduler.instance)
-            .filter { !$0.isEmpty }
             .distinctUntilChanged()
-            .share(replay: 1, scope: .whileConnected)
+            .share()
+
+        searchTrigger
+            .filter { $0.isEmpty }
+            .map { _ in [] }
+            .bind(to: _repositories)
+            .disposed(by: disposeBag)
+
+        let query = searchTrigger
+            .filter { !$0.isEmpty }
 
         Observable.combineLatest(query, page)
-            .bind(to: loadAction.inputs)
+            .flatMapLatest { (query, page) -> Observable<[Repository]> in
+                let request = GitHubAPI.SearchRepositories(query: query, page: page)
+                return session.rx
+                    .response(request)
+                    .map { $0.items }
+                    .catchErrorJustReturn([])
+                    .do(onError: { [weak self] in
+                        self?._error.onNext($0)
+                    })
+            }
+            .bind(to: _repositories)
             .disposed(by: disposeBag)
     }
 }

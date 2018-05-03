@@ -20,7 +20,7 @@ final class SearchRepositoryCell: UITableViewCell {
     @IBOutlet weak var repositoryNameLabel: UILabel! {
         didSet {
             repositoryNameLabel.textColor = UIColor.GitHub.blueText
-            repositoryNameLabel.font = .systemFont(ofSize: 20, weight: .heavy)
+            repositoryNameLabel.font = .systemFont(ofSize: 19, weight: .heavy)
             repositoryNameLabel.textAlignment = .left
         }
     }
