@@ -60,7 +60,7 @@ final class SearchRepositoryViewModel {
                 guard let me = self else { return .empty() }
                 me.page.accept(1)
                 me.lastPage.accept(0)
-                return Observable.of((query, me.page.value, false))
+                return .of((query, me.page.value, false))
         }
         .bind(to: requestWillStart)
         .disposed(by: disposeBag)
@@ -68,16 +68,16 @@ final class SearchRepositoryViewModel {
         reachedBottom
             .filter { [weak self] in
                 guard let me = self else { return false }
-                return !me.isFetchingRepositories.value
+                let isFetching = me.isFetchingRepositories.value
+                let isEmpty = me._repositories.value.isEmpty
+                let isLast = me.page.value == me.lastPage.value
+                return !isFetching && !isEmpty && !isLast
             }
             .withLatestFrom(query)
             .flatMap { [weak self] (query) -> Observable<(String, Int, Bool)> in
                 guard let me = self else { return .empty() }
                 me.page.accept(me.page.value + 1)
-                return Observable.of((query, me.page.value, true))
-            }
-            .filter { [weak self] (query, page, isAddions) -> Bool in
-                return self?.lastPage.value != page
+                return .of((query, me.page.value, true))
             }
             .bind(to: requestWillStart)
             .disposed(by: disposeBag)
@@ -92,10 +92,10 @@ final class SearchRepositoryViewModel {
                 let request = GitHubAPI.SearchRepositories(query: query, page: page)
                 return session.rx
                     .response(request)
-                    .catchErrorJustReturn(SearchRepositoriesResponse(totalCount: 0, repositories: []))
-                    .do(onError: { [weak self] in
+                    .catchError { [weak self] in
                         self?._error.onNext($0)
-                    })
+                        return .just(SearchRepositoriesResponse(totalCount: 0, repositories: []))
+                    }
                     .flatMap { [weak self] response -> Observable<([Repository], Bool)> in
                         guard let me = self else { return .of(([], false)) }
                         let isRemainder = response.totalCount % 30 != 0

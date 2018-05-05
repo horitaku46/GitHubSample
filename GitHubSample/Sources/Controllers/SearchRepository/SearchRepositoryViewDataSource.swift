@@ -44,6 +44,7 @@ final class SearchRepositoryViewDataSource: NSObject {
         tableView.keyboardDismissMode = .onDrag
         tableView.estimatedRowHeight = 100
         tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.tableFooterView = UIView(frame: .zero)
         tableView.registerCell(SearchRepositoryCell.self)
 
         let dataSource = RxTableViewSectionedAnimatedDataSource<SearchRepositorySectionModel>(
