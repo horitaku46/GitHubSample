@@ -10,7 +10,6 @@ import Foundation
 import RxSwift
 
 extension ObservableType where E: OptionalType {
-
     func filterNil() -> Observable<E.Wrapped> {
         return self.flatMap { element -> Observable<E.Wrapped> in
             guard let value = element.value else {

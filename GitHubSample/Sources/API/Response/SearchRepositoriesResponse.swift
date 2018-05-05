@@ -9,5 +9,11 @@
 import Foundation
 
 struct SearchRepositoriesResponse: Decodable {
-    let items: [Repository]
+    let totalCount: Int
+    let repositories: [Repository]
+
+    private enum CodingKeys: String, CodingKey {
+        case totalCount   = "total_count"
+        case repositories = "items"
+    }
 }

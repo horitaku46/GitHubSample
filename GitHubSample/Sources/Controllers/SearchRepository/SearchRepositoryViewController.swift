@@ -20,7 +20,8 @@ final class SearchRepositoryViewController: UIViewController {
         .init(viewModel: viewModel)
     }()
     private lazy var viewModel: SearchRepositoryViewModel = {
-        .init(searchText: searchBar.rx.text.orEmpty)
+        .init(searchText: searchBar.rx.text.orEmpty,
+              reachedBottom: tableView.rx.reachedBottom)
     }()
     private let keyboardObserver = KeyboardObserver()
     private let disposeBag = DisposeBag()
