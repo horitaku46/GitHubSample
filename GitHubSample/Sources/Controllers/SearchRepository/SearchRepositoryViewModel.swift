@@ -45,7 +45,7 @@ final class SearchRepositoryViewModel {
             .disposed(by: disposeBag)
 
         let query = searchTrigger
-            .debounce(1, scheduler: MainScheduler.instance)
+            .debounce(0.7, scheduler: MainScheduler.instance)
             .filter { !$0.isEmpty }
             .share(replay: 1, scope: .whileConnected)
 

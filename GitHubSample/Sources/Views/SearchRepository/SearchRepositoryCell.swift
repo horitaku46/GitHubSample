@@ -14,6 +14,8 @@ final class SearchRepositoryCell: UITableViewCell {
     @IBOutlet weak var avatarImageView: UIImageView! {
         didSet {
             avatarImageView.contentMode = .scaleAspectFill
+            avatarImageView.layer.cornerRadius = avatarImageView.bounds.width * 0.1
+            avatarImageView.clipsToBounds = true
         }
     }
 
