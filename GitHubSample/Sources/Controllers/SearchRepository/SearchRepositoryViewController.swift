@@ -13,9 +13,9 @@ import APIKit
 
 final class SearchRepositoryViewController: UIViewController {
 
-    @IBOutlet weak var searchBar: SearchRepositoryBar!
-    @IBOutlet weak var searchRepositoryLoadingView: SearchRepositoryLoadingView!
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet private weak var searchBar: SearchRepositoryBar!
+    @IBOutlet private weak var searchRepositoryLoadingView: SearchRepositoryLoadingView!
+    @IBOutlet private weak var tableView: UITableView!
 
     private let _selectedIndexPath = PublishSubject<IndexPath>()
     private let keyboardObserver = KeyboardObserver()

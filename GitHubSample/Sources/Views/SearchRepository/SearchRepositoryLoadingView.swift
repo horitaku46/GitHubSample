@@ -10,7 +10,7 @@ import UIKit
 
 final class SearchRepositoryLoadingView: UIView {
 
-    @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView! {
+    @IBOutlet private weak var activityIndicatorView: UIActivityIndicatorView! {
         didSet {
             activityIndicatorView.startAnimating()
         }

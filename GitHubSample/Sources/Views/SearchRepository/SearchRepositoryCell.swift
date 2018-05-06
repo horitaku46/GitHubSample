@@ -11,7 +11,7 @@ import Kingfisher
 
 final class SearchRepositoryCell: UITableViewCell {
 
-    @IBOutlet weak var avatarImageView: UIImageView! {
+    @IBOutlet private weak var avatarImageView: UIImageView! {
         didSet {
             avatarImageView.contentMode = .scaleAspectFill
             avatarImageView.layer.cornerRadius = avatarImageView.bounds.width * 0.1
@@ -19,7 +19,7 @@ final class SearchRepositoryCell: UITableViewCell {
         }
     }
 
-    @IBOutlet weak var repositoryNameLabel: UILabel! {
+    @IBOutlet private weak var repositoryNameLabel: UILabel! {
         didSet {
             repositoryNameLabel.textColor = UIColor.GitHub.blueText
             repositoryNameLabel.font = .systemFont(ofSize: 19, weight: .heavy)
@@ -27,7 +27,7 @@ final class SearchRepositoryCell: UITableViewCell {
         }
     }
 
-    @IBOutlet weak var repositoryDescLabel: UILabel! {
+    @IBOutlet private weak var repositoryDescLabel: UILabel! {
         didSet {
             repositoryDescLabel.textColor = .darkText
             repositoryDescLabel.font = .systemFont(ofSize: 12)
@@ -36,21 +36,21 @@ final class SearchRepositoryCell: UITableViewCell {
         }
     }
 
-    @IBOutlet weak var repositoryLangLabel: UILabel! {
+    @IBOutlet private weak var repositoryLangLabel: UILabel! {
         didSet {
             repositoryLangLabel.textColor = .darkText
             repositoryLangLabel.font = .systemFont(ofSize: 15, weight: .heavy)
         }
     }
 
-    @IBOutlet weak var repositoryStarLabel: UILabel! {
+    @IBOutlet private weak var repositoryStarLabel: UILabel! {
         didSet {
             repositoryStarLabel.textColor = .darkText
             repositoryStarLabel.font = .systemFont(ofSize: 15, weight: .heavy)
         }
     }
 
-    @IBOutlet weak var repositoryForkLabel: UILabel! {
+    @IBOutlet private weak var repositoryForkLabel: UILabel! {
         didSet {
             repositoryForkLabel.textColor = .darkText
             repositoryForkLabel.font = .systemFont(ofSize: 15, weight: .heavy)
