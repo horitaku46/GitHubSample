@@ -13,13 +13,8 @@ import APIKit
 
 final class SearchRepositoryViewModel {
 
-    var repositories: Observable<[Repository]> {
-        return _repositories.asObservable()
-    }
-
-    var error: Observable<Error> {
-        return _error.asObservable()
-    }
+    let repositories: Observable<[Repository]>
+    let error: Observable<Error>
 
     private let _repositories = BehaviorRelay<[Repository]>(value: [])
     private let _error = PublishSubject<Error>()
@@ -31,6 +26,9 @@ final class SearchRepositoryViewModel {
     init(session: Session = .shared,
          searchText: ControlProperty<String>,
          reachedBottom: Observable<Void>) {
+
+        self.repositories = _repositories.asObservable().share()
+        self.error = _error.asObservable().share()
 
         let searchTrigger = searchText
             .distinctUntilChanged()
@@ -47,12 +45,11 @@ final class SearchRepositoryViewModel {
             .disposed(by: disposeBag)
 
         let query = searchTrigger
-            .debounce(0.3, scheduler: MainScheduler.instance)
+            .debounce(1, scheduler: MainScheduler.instance)
             .filter { !$0.isEmpty }
             .share(replay: 1, scope: .whileConnected)
 
-
-        /// (query: String, Int: page, Bool: isAddtions)
+        /// (query: String, Int: page, Bool: isAdditions Repocitory)
         let requestWillStart = PublishSubject<(String, Int, Bool)>()
 
         query
@@ -88,7 +85,7 @@ final class SearchRepositoryViewModel {
             .disposed(by: disposeBag)
 
         requestWillStart
-            .flatMapLatest { (query, page, isAddions) -> Observable<([Repository], Bool)> in
+            .flatMapLatest { (query, page, isAdditions) -> Observable<([Repository], Bool)> in
                 let request = GitHubAPI.SearchRepositories(query: query, page: page)
                 return session.rx
                     .response(request)
@@ -97,17 +94,17 @@ final class SearchRepositoryViewModel {
                         return .just(SearchRepositoriesResponse(totalCount: 0, repositories: []))
                     }
                     .flatMap { [weak self] response -> Observable<([Repository], Bool)> in
-                        guard let me = self else { return .of(([], false)) }
+                        guard let me = self else { return .just(([], false)) }
                         let isRemainder = response.totalCount % 30 != 0
                         let quotient = response.totalCount / 30
                         me.lastPage.accept(isRemainder ? quotient + 1 : quotient)
                         me.isFetchingRepositories.accept(false)
-                        return .of((response.repositories, isAddions))
-                    }
+                        return .of((response.repositories, isAdditions))
+                }
             }
-            .flatMap { [weak self] (repositories, isAddions) -> Observable<[Repository]> in
-                guard let me = self else { return .empty() }
-                return .of(isAddions ? me._repositories.value + repositories : repositories)
+            .flatMap { [weak self] (repositories, isAdditions) -> Observable<[Repository]> in
+                guard let me = self else { return .just([]) }
+                return .of(isAdditions ? me._repositories.value + repositories : repositories)
             }
             .bind(to: _repositories)
             .disposed(by: disposeBag)
