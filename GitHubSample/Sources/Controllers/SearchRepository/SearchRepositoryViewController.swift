@@ -14,11 +14,7 @@ import APIKit
 final class SearchRepositoryViewController: UIViewController {
 
     @IBOutlet weak var searchBar: SearchRepositoryBar!
-    @IBOutlet weak var searchRepositoryLoadingView: SearchRepositoryLoadingView! {
-        didSet {
-            searchRepositoryLoadingView.isHidden = true
-        }
-    }
+    @IBOutlet weak var searchRepositoryLoadingView: SearchRepositoryLoadingView!
     @IBOutlet weak var tableView: UITableView!
 
     private lazy var dataSource: SearchRepositoryViewDataSource = {

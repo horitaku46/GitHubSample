@@ -33,6 +33,11 @@ extension SearchRepositorySectionModel: AnimatableSectionModelType {
 
 final class SearchRepositoryViewDataSource: NSObject {
 
+    private enum Const {
+        static let estimatedRowHeight: CGFloat = 100
+        static let contentInsetBottom: CGFloat = 150
+    }
+
     private let viewModel: SearchRepositoryViewModel
     private let disposeBag = DisposeBag()
 
@@ -42,9 +47,10 @@ final class SearchRepositoryViewDataSource: NSObject {
 
     func configure(tableView: UITableView) {
         tableView.keyboardDismissMode = .onDrag
-        tableView.estimatedRowHeight = 100
+        tableView.estimatedRowHeight = Const.estimatedRowHeight
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.tableFooterView = UIView(frame: .zero)
+        tableView.contentInset.bottom = Const.contentInsetBottom
         tableView.registerCell(SearchRepositoryCell.self)
 
         let dataSource = RxTableViewSectionedAnimatedDataSource<SearchRepositorySectionModel>(
