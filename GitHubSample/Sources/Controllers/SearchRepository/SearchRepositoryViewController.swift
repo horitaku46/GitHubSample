@@ -13,7 +13,16 @@ import APIKit
 
 final class SearchRepositoryViewController: UIViewController {
 
+    private enum Const {
+        static let searchRepositoryLoadingViewHeight: CGFloat = 100
+    }
+
     @IBOutlet weak var searchBar: SearchRepositoryBar!
+    @IBOutlet weak var searchRepositoryLoadingView: SearchRepositoryLoadingView! {
+        didSet {
+            searchRepositoryLoadingView.isHidden = true
+        }
+    }
     @IBOutlet weak var tableView: UITableView!
 
     private lazy var dataSource: SearchRepositoryViewDataSource = {
@@ -28,6 +37,10 @@ final class SearchRepositoryViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        viewModel.firstFetchingRepositories
+            .bind(to: firstFetchingRepositories)
+            .disposed(by: disposeBag)
 
         dataSource.configure(tableView: tableView)
 
@@ -51,5 +64,11 @@ final class SearchRepositoryViewController: UIViewController {
                 self?.searchBar.resignFirstResponder()
             })
             .disposed(by: disposeBag)
+    }
+
+    private var firstFetchingRepositories: AnyObserver<(Bool)> {
+        return Binder(self) { (me, isHidden) in
+            me.searchRepositoryLoadingView.isHidden = isHidden
+        }.asObserver()
     }
 }

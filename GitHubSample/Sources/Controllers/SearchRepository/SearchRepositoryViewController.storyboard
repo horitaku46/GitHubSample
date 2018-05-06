@@ -25,8 +25,25 @@
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="56"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </searchBar>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="j1c-1J-Zwq" customClass="SearchRepositoryLoadingView" customModule="GitHubSample" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="56" width="375" height="100"/>
+                                        <subviews>
+                                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="f2G-lI-WOL">
+                                                <rect key="frame" x="177" y="40" width="20" height="20"/>
+                                            </activityIndicatorView>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstItem="f2G-lI-WOL" firstAttribute="centerX" secondItem="j1c-1J-Zwq" secondAttribute="centerX" id="PLG-x4-AXZ"/>
+                                            <constraint firstAttribute="height" constant="100" id="qOe-zP-EmT"/>
+                                            <constraint firstItem="f2G-lI-WOL" firstAttribute="centerY" secondItem="j1c-1J-Zwq" secondAttribute="centerY" id="rTS-Gv-8E1"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="activityIndicatorView" destination="f2G-lI-WOL" id="025-gB-YlX"/>
+                                        </connections>
+                                    </view>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="hYW-to-gi8">
-                                        <rect key="frame" x="0.0" y="56" width="375" height="591"/>
+                                        <rect key="frame" x="0.0" y="156" width="375" height="491"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </tableView>
                                 </subviews>
@@ -47,6 +64,7 @@
                     <connections>
                         <outlet property="searchBar" destination="rB1-c7-Fx1" id="N7i-KW-FSU"/>
                         <outlet property="searchDisplayController" destination="Rub-kF-dAS" id="os0-LD-uUr"/>
+                        <outlet property="searchRepositoryLoadingView" destination="j1c-1J-Zwq" id="FwC-4z-cu8"/>
                         <outlet property="tableView" destination="hYW-to-gi8" id="oNq-7B-pI2"/>
                     </connections>
                 </viewController>

@@ -15,10 +15,12 @@ final class SearchRepositoryViewModel {
 
     let repositories: Observable<[Repository]>
     let error: Observable<Error>
+    let firstFetchingRepositories: Observable<Bool>
 
     private let _repositories = BehaviorRelay<[Repository]>(value: [])
     private let _error = PublishSubject<Error>()
-    private let isFetchingRepositories = BehaviorRelay<Bool>(value: false)
+    private let _firstFetchingRepositories = PublishSubject<Bool>()
+    private let isFetchingRepositories = BehaviorRelay<Bool>(value: true)
     private let page = BehaviorRelay<Int>(value: 1)
     private var lastPage = BehaviorRelay<Int>(value: 0)
     private let disposeBag = DisposeBag()
@@ -27,8 +29,9 @@ final class SearchRepositoryViewModel {
          searchText: ControlProperty<String>,
          reachedBottom: Observable<Void>) {
 
-        self.repositories = _repositories.asObservable().share()
-        self.error = _error.asObservable().share()
+        self.repositories = _repositories.asObservable()
+        self.error = _error.asObservable()
+        self.firstFetchingRepositories = _firstFetchingRepositories.asObservable()
 
         let searchTrigger = searchText
             .distinctUntilChanged()
@@ -44,12 +47,21 @@ final class SearchRepositoryViewModel {
             })
             .disposed(by: disposeBag)
 
+        searchTrigger
+            .filter { [weak self] in
+                guard let me = self else { return false }
+                return me._repositories.value.isEmpty && !$0.isEmpty
+            }
+            .map { _ in false }
+            .bind(to: _firstFetchingRepositories)
+            .disposed(by: disposeBag)
+
         let query = searchTrigger
             .debounce(0.7, scheduler: MainScheduler.instance)
             .filter { !$0.isEmpty }
             .share(replay: 1, scope: .whileConnected)
 
-        /// (query: String, Int: page, Bool: isAdditions Repocitory)
+        /// (query: String, Int: page, Bool: isAdditions Repository)
         let requestWillStart = PublishSubject<(String, Int, Bool)>()
 
         query
@@ -90,14 +102,18 @@ final class SearchRepositoryViewModel {
                 return session.rx
                     .response(request)
                     .catchError { [weak self] in
-                        self?._error.onNext($0)
-                        return .just(SearchRepositoriesResponse(totalCount: 0, repositories: []))
+                        let response = Observable.just(SearchRepositoriesResponse(totalCount: 0, repositories: []))
+                        guard let me = self else { return response }
+                        me._error.onNext($0)
+                        me._firstFetchingRepositories.onNext(true)
+                        return response
                     }
                     .flatMap { [weak self] response -> Observable<([Repository], Bool)> in
                         guard let me = self else { return .just(([], false)) }
                         let isRemainder = response.totalCount % 30 != 0
                         let quotient = response.totalCount / 30
                         me.lastPage.accept(isRemainder ? quotient + 1 : quotient)
+                        me._firstFetchingRepositories.onNext(true)
                         me.isFetchingRepositories.accept(false)
                         return .of((response.repositories, isAdditions))
                 }

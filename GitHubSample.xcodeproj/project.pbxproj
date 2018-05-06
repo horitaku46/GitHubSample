@@ -17,6 +17,7 @@
 		612CA160208470B90030683F /* SearchRepositoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 612CA15F208470B90030683F /* SearchRepositoryCell.xib */; };
 		613885D8206BD449004B7C56 /* SearchRepositoryBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 613885D7206BD449004B7C56 /* SearchRepositoryBar.swift */; };
 		613885DC206BD47E004B7C56 /* SearchRepositoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 613885DB206BD47E004B7C56 /* SearchRepositoryViewModel.swift */; };
+		6153A0FF209EC3F000445A9D /* SearchRepositoryLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6153A0FE209EC3F000445A9D /* SearchRepositoryLoadingView.swift */; };
 		619C779220948115004ED484 /* Kingfisher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 619C778F20948114004ED484 /* Kingfisher.framework */; };
 		619C779320948115004ED484 /* RxDataSources.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 619C779020948114004ED484 /* RxDataSources.framework */; };
 		619C779420948115004ED484 /* Differentiator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 619C779120948114004ED484 /* Differentiator.framework */; };
@@ -72,6 +73,7 @@
 		612CA15F208470B90030683F /* SearchRepositoryCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchRepositoryCell.xib; sourceTree = "<group>"; };
 		613885D7206BD449004B7C56 /* SearchRepositoryBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRepositoryBar.swift; sourceTree = "<group>"; };
 		613885DB206BD47E004B7C56 /* SearchRepositoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRepositoryViewModel.swift; sourceTree = "<group>"; };
+		6153A0FE209EC3F000445A9D /* SearchRepositoryLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRepositoryLoadingView.swift; sourceTree = "<group>"; };
 		619C778F20948114004ED484 /* Kingfisher.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Kingfisher.framework; path = Carthage/Build/iOS/Kingfisher.framework; sourceTree = "<group>"; };
 		619C779020948114004ED484 /* RxDataSources.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxDataSources.framework; path = Carthage/Build/iOS/RxDataSources.framework; sourceTree = "<group>"; };
 		619C779120948114004ED484 /* Differentiator.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Differentiator.framework; path = Carthage/Build/iOS/Differentiator.framework; sourceTree = "<group>"; };
@@ -297,6 +299,7 @@
 			isa = PBXGroup;
 			children = (
 				613885D7206BD449004B7C56 /* SearchRepositoryBar.swift */,
+				6153A0FE209EC3F000445A9D /* SearchRepositoryLoadingView.swift */,
 				612CA15F208470B90030683F /* SearchRepositoryCell.xib */,
 				612CA15D208470990030683F /* SearchRepositoryCell.swift */,
 			);
@@ -496,6 +499,7 @@
 				611876CF208EF27E00A0B45F /* NSObjectProtocolExtension.swift in Sources */,
 				611876D3208F53E200A0B45F /* Reusable.swift in Sources */,
 				613885D8206BD449004B7C56 /* SearchRepositoryBar.swift in Sources */,
+				6153A0FF209EC3F000445A9D /* SearchRepositoryLoadingView.swift in Sources */,
 				61DE4EDE2077262E009B0A17 /* KeyboardObserver.swift in Sources */,
 				61F2BA60206A429A00A208D7 /* SearchRepositoriesResponse.swift in Sources */,
 				612CA15E208470990030683F /* SearchRepositoryCell.swift in Sources */,
