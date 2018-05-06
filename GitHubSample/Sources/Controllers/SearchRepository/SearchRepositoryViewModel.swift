@@ -16,10 +16,12 @@ final class SearchRepositoryViewModel {
     let repositories: Observable<[Repository]>
     let error: Observable<Error>
     let firstFetchingRepositories: Observable<Bool>
+    let selectedRepository: Observable<Repository>
 
     private let _repositories = BehaviorRelay<[Repository]>(value: [])
     private let _error = PublishSubject<Error>()
     private let _firstFetchingRepositories = PublishSubject<Bool>()
+
     private let isFetchingRepositories = BehaviorRelay<Bool>(value: true)
     private let page = BehaviorRelay<Int>(value: 1)
     private var lastPage = BehaviorRelay<Int>(value: 0)
@@ -27,11 +29,15 @@ final class SearchRepositoryViewModel {
 
     init(session: Session = .shared,
          searchText: ControlProperty<String>,
-         reachedBottom: Observable<Void>) {
+         reachedBottom: Observable<Void>,
+         selectedIndexPath: Observable<IndexPath>) {
 
-        self.repositories = _repositories.asObservable()
-        self.error = _error.asObservable()
-        self.firstFetchingRepositories = _firstFetchingRepositories.asObservable()
+        repositories = _repositories.asObservable()
+        error = _error.asObservable()
+        firstFetchingRepositories = _firstFetchingRepositories.asObservable()
+
+        selectedRepository = selectedIndexPath
+            .withLatestFrom(_repositories) { $1[$0.row] }
 
         let searchTrigger = searchText
             .distinctUntilChanged()

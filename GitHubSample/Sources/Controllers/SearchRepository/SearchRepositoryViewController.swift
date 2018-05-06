@@ -17,14 +17,17 @@ final class SearchRepositoryViewController: UIViewController {
     @IBOutlet weak var searchRepositoryLoadingView: SearchRepositoryLoadingView!
     @IBOutlet weak var tableView: UITableView!
 
+    private let _selectedIndexPath = PublishSubject<IndexPath>()
+    private let keyboardObserver = KeyboardObserver()
     private lazy var dataSource: SearchRepositoryViewDataSource = {
-        .init(viewModel: viewModel)
+        .init(viewModel: viewModel,
+              selectedIndexPath: _selectedIndexPath.asObserver())
     }()
     private lazy var viewModel: SearchRepositoryViewModel = {
         .init(searchText: searchBar.rx.text.orEmpty,
-              reachedBottom: tableView.rx.reachedBottom)
+              reachedBottom: tableView.rx.reachedBottom,
+              selectedIndexPath: _selectedIndexPath)
     }()
-    private let keyboardObserver = KeyboardObserver()
     private let disposeBag = DisposeBag()
     
     override func viewDidLoad() {
@@ -46,6 +49,10 @@ final class SearchRepositoryViewController: UIViewController {
 
         searchBar.rx.cancelButtonClicked
             .bind(to: cancelButtonClicked)
+            .disposed(by: disposeBag)
+
+        viewModel.selectedRepository
+            .bind(to: showWeb)
             .disposed(by: disposeBag)
     }
 
@@ -70,6 +77,14 @@ final class SearchRepositoryViewController: UIViewController {
     private var firstFetchingRepositories: AnyObserver<(Bool)> {
         return Binder(self) { (me, isHidden) in
             me.searchRepositoryLoadingView.isHidden = isHidden
+        }.asObserver()
+    }
+
+    private var showWeb: AnyObserver<Repository> {
+        return Binder(self) { (me, repository) in
+            me.searchBar.resignFirstResponder()
+            let webViewController = WebViewController.make(urlStr: repository.htmlUrlStr)
+            me.show(webViewController, sender: nil)
         }.asObserver()
     }
 }

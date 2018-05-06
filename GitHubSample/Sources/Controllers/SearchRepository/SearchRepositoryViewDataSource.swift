@@ -38,11 +38,15 @@ final class SearchRepositoryViewDataSource: NSObject {
         static let contentInsetBottom: CGFloat = 150
     }
 
+    let selectedIndexPath: AnyObserver<IndexPath>
+
     private let viewModel: SearchRepositoryViewModel
     private let disposeBag = DisposeBag()
 
-    init(viewModel: SearchRepositoryViewModel) {
+    init(viewModel: SearchRepositoryViewModel,
+         selectedIndexPath: AnyObserver<IndexPath>) {
         self.viewModel = viewModel
+        self.selectedIndexPath = selectedIndexPath
     }
 
     func configure(tableView: UITableView) {
@@ -66,6 +70,13 @@ final class SearchRepositoryViewDataSource: NSObject {
                 return .of([SearchRepositorySectionModel(repositories: repositories)])
             }
             .bind(to: tableView.rx.items(dataSource: dataSource))
+            .disposed(by: disposeBag)
+
+        tableView.rx.itemSelected
+            .subscribe(onNext: { [weak self] in
+                tableView.deselectRow(at: $0, animated: true)
+                self?.selectedIndexPath.onNext($0)
+            })
             .disposed(by: disposeBag)
     }
 }
