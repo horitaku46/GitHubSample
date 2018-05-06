@@ -37,17 +37,21 @@ struct KeyboardObserver {
         willShow = notification.rx.notification(.UIKeyboardWillShow)
             .map { Info($0) }
             .filterNil()
+            .observeOn(MainScheduler.instance)
 
         didShow = notification.rx.notification(.UIKeyboardDidShow)
             .map { Info($0) }
             .filterNil()
+            .observeOn(MainScheduler.instance)
 
         willHide = notification.rx.notification(.UIKeyboardWillHide)
             .map { Info($0) }
             .filterNil()
+            .observeOn(MainScheduler.instance)
 
         didHide = notification.rx.notification(.UIKeyboardDidHide)
             .map { Info($0) }
             .filterNil()
+            .observeOn(MainScheduler.instance)
     }
 }

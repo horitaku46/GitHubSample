@@ -13,10 +13,6 @@ import APIKit
 
 final class SearchRepositoryViewController: UIViewController {
 
-    private enum Const {
-        static let searchRepositoryLoadingViewHeight: CGFloat = 100
-    }
-
     @IBOutlet weak var searchBar: SearchRepositoryBar!
     @IBOutlet weak var searchRepositoryLoadingView: SearchRepositoryLoadingView! {
         didSet {
@@ -38,32 +34,41 @@ final class SearchRepositoryViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        dataSource.configure(tableView: tableView)
+
         viewModel.firstFetchingRepositories
             .bind(to: firstFetchingRepositories)
             .disposed(by: disposeBag)
 
-        dataSource.configure(tableView: tableView)
-
         keyboardObserver.willShow
-            .observeOn(MainScheduler.instance)
-            .subscribe(onNext: { [weak self] _ in
-                self?.searchBar.setShowsCancelButton(true, animated: true)
-            })
+            .bind(to: keyboardWillShow)
             .disposed(by: disposeBag)
 
         keyboardObserver.willHide
-            .observeOn(MainScheduler.instance)
-            .subscribe(onNext: { [weak self] _ in
-                self?.searchBar.setShowsCancelButton(false, animated: true)
-            })
+            .bind(to: keyboardWillHide)
             .disposed(by: disposeBag)
 
         searchBar.rx.cancelButtonClicked
-            .observeOn(MainScheduler.instance)
-            .subscribe(onNext: { [weak self] in
-                self?.searchBar.resignFirstResponder()
-            })
+            .bind(to: cancelButtonClicked)
             .disposed(by: disposeBag)
+    }
+
+    private var keyboardWillShow: AnyObserver<KeyboardObserver.Info> {
+        return Binder(self) { (me, info) in
+            me.searchBar.setShowsCancelButton(true, animated: true)
+        }.asObserver()
+    }
+
+    private var keyboardWillHide: AnyObserver<KeyboardObserver.Info> {
+        return Binder(self) { (me, info) in
+            me.searchBar.setShowsCancelButton(false, animated: true)
+        }.asObserver()
+    }
+
+    private var cancelButtonClicked: AnyObserver<Void> {
+        return Binder(self) { (me, _) in
+            me.searchBar.resignFirstResponder()
+        }.asObserver()
     }
 
     private var firstFetchingRepositories: AnyObserver<(Bool)> {
