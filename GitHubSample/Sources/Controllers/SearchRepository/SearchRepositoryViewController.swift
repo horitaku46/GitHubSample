@@ -15,6 +15,7 @@ final class SearchRepositoryViewController: UIViewController {
 
     @IBOutlet private weak var searchBar: SearchRepositoryBar!
     @IBOutlet private weak var searchRepositoryLoadingView: SearchRepositoryLoadingView!
+    @IBOutlet private weak var noSearchResultsView: NoSearchResultsView!
     @IBOutlet private weak var tableView: UITableView!
 
     private let _selectedIndexPath = PublishSubject<IndexPath>()
@@ -35,10 +36,6 @@ final class SearchRepositoryViewController: UIViewController {
 
         dataSource.configure(tableView: tableView)
 
-        viewModel.isEmptyRepositories
-            .bind(to: isEmptyRepositories)
-            .disposed(by: disposeBag)
-
         keyboardObserver.willShow
             .bind(to: keyboardWillShow)
             .disposed(by: disposeBag)
@@ -49,6 +46,16 @@ final class SearchRepositoryViewController: UIViewController {
 
         searchBar.rx.cancelButtonClicked
             .bind(to: cancelButtonClicked)
+            .disposed(by: disposeBag)
+
+        viewModel.isEmptyRepositories
+            .observeOn(MainScheduler.instance)
+            .bind(to: isEmptyRepositories)
+            .disposed(by: disposeBag)
+
+        viewModel.isEmptySearchResult
+            .observeOn(MainScheduler.instance)
+            .bind(to: isEmptySearchResult)
             .disposed(by: disposeBag)
 
         viewModel.selectedRepository
@@ -78,6 +85,12 @@ final class SearchRepositoryViewController: UIViewController {
     private var isEmptyRepositories: AnyObserver<Bool> {
         return Binder(self) { (me, isHidden) in
             me.searchRepositoryLoadingView.isHidden = isHidden
+        }.asObserver()
+    }
+
+    private var isEmptySearchResult: AnyObserver<Bool> {
+        return Binder(self) { (me, isEmpty) in
+            me.noSearchResultsView.isHidden = !isEmpty
         }.asObserver()
     }
 

@@ -22,28 +22,48 @@
                                 <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                                 <subviews>
                                     <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="rB1-c7-Fx1" customClass="SearchRepositoryBar" customModule="GitHubSample" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="56"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </searchBar>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="j1c-1J-Zwq" customClass="SearchRepositoryLoadingView" customModule="GitHubSample" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="100" width="375" height="100"/>
+                                        <rect key="frame" x="0.0" y="56" width="375" height="80"/>
                                         <subviews>
                                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="f2G-lI-WOL">
-                                                <rect key="frame" x="177" y="40" width="20" height="20"/>
+                                                <rect key="frame" x="177" y="30" width="20" height="20"/>
                                             </activityIndicatorView>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="f2G-lI-WOL" firstAttribute="centerX" secondItem="j1c-1J-Zwq" secondAttribute="centerX" id="PLG-x4-AXZ"/>
-                                            <constraint firstAttribute="height" constant="100" id="qOe-zP-EmT"/>
+                                            <constraint firstAttribute="height" constant="80" id="qOe-zP-EmT"/>
                                             <constraint firstItem="f2G-lI-WOL" firstAttribute="centerY" secondItem="j1c-1J-Zwq" secondAttribute="centerY" id="rTS-Gv-8E1"/>
                                         </constraints>
                                         <connections>
                                             <outlet property="activityIndicatorView" destination="f2G-lI-WOL" id="025-gB-YlX"/>
                                         </connections>
                                     </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="E7U-tc-CJ1" customClass="NoSearchResultsView" customModule="GitHubSample" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="136" width="375" height="80"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No search results" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H7f-uL-Itp">
+                                                <rect key="frame" x="120.5" y="30.5" width="133.5" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstItem="H7f-uL-Itp" firstAttribute="centerY" secondItem="E7U-tc-CJ1" secondAttribute="centerY" id="7xa-BV-Xz1"/>
+                                            <constraint firstAttribute="height" constant="80" id="iWs-Lk-n4U"/>
+                                            <constraint firstItem="H7f-uL-Itp" firstAttribute="centerX" secondItem="E7U-tc-CJ1" secondAttribute="centerX" id="m5b-c6-1lb"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="noSearchResultslabel" destination="H7f-uL-Itp" id="pBc-BA-mtg"/>
+                                        </connections>
+                                    </view>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="hYW-to-gi8">
-                                        <rect key="frame" x="0.0" y="200" width="375" height="447"/>
+                                        <rect key="frame" x="0.0" y="216" width="375" height="431"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </tableView>
                                 </subviews>
@@ -62,6 +82,7 @@
                         <nil key="title"/>
                     </navigationItem>
                     <connections>
+                        <outlet property="noSearchResultsView" destination="E7U-tc-CJ1" id="6sv-Mp-sHD"/>
                         <outlet property="searchBar" destination="rB1-c7-Fx1" id="N7i-KW-FSU"/>
                         <outlet property="searchDisplayController" destination="Rub-kF-dAS" id="os0-LD-uUr"/>
                         <outlet property="searchRepositoryLoadingView" destination="j1c-1J-Zwq" id="FwC-4z-cu8"/>
@@ -78,7 +99,7 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="836" y="116"/>
+            <point key="canvasLocation" x="836" y="115.59220389805098"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="qbZ-7a-jUz">

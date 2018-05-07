@@ -16,12 +16,14 @@ final class SearchRepositoryViewModel {
     let repositories: Observable<[Repository]>
     let error: Observable<Error>
     let isEmptyRepositories: Observable<Bool>
+    let isEmptySearchResult: Observable<Bool>
     let lastPageFetchingRepositories: Observable<Void>
     let selectedRepository: Observable<Repository>
 
     private let _repositories = BehaviorRelay<[Repository]>(value: [])
     private let _error = PublishSubject<Error>()
     private let _isEmptyRepositories = PublishSubject<Bool>()
+    private let _isEmptySearchResult = PublishSubject<Bool>()
     private let _lastPageFetchingRepositories = PublishSubject<Void>()
 
     private let isFetchingRepositories = BehaviorRelay<Bool>(value: true)
@@ -37,6 +39,7 @@ final class SearchRepositoryViewModel {
         repositories = _repositories.asObservable()
         error = _error.asObservable()
         isEmptyRepositories = _isEmptyRepositories.asObservable()
+        isEmptySearchResult = _isEmptySearchResult.asObservable()
         lastPageFetchingRepositories = _lastPageFetchingRepositories.asObservable()
 
         selectedRepository = selectedIndexPath
@@ -63,6 +66,12 @@ final class SearchRepositoryViewModel {
             }
             .map { _ in false }
             .bind(to: _isEmptyRepositories)
+            .disposed(by: disposeBag)
+
+        searchTrigger
+            .filter { !$0.isEmpty }
+            .map { _ in false }
+            .bind(to: _isEmptySearchResult)
             .disposed(by: disposeBag)
 
         let query = searchTrigger
@@ -139,6 +148,13 @@ final class SearchRepositoryViewModel {
                 return .of(isAdditions ? me._repositories.value + repositories : repositories)
             }
             .bind(to: _repositories)
+            .disposed(by: disposeBag)
+
+        response
+            .withLatestFrom(query) { ($0, $1) }
+            .filter { $0.0.0.isEmpty && !$0.1.isEmpty }
+            .map { _ in true }
+            .bind(to: _isEmptySearchResult)
             .disposed(by: disposeBag)
 
         response
