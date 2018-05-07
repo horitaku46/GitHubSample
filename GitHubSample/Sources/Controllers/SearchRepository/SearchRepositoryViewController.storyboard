@@ -53,7 +53,7 @@
                         <constraints>
                             <constraint firstItem="6mC-V7-ZKe" firstAttribute="leading" secondItem="rE3-2W-tLP" secondAttribute="leading" id="2n1-S5-UGJ"/>
                             <constraint firstItem="6mC-V7-ZKe" firstAttribute="trailing" secondItem="rE3-2W-tLP" secondAttribute="trailing" id="KgY-da-0tl"/>
-                            <constraint firstItem="6mC-V7-ZKe" firstAttribute="bottom" secondItem="bsL-TY-8fS" secondAttribute="bottom" id="TBe-Yx-mzz"/>
+                            <constraint firstItem="6mC-V7-ZKe" firstAttribute="bottom" secondItem="rE3-2W-tLP" secondAttribute="bottom" id="TBe-Yx-mzz"/>
                             <constraint firstItem="6mC-V7-ZKe" firstAttribute="top" secondItem="bsL-TY-8fS" secondAttribute="top" id="Yh8-sr-Nmg"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="bsL-TY-8fS"/>
