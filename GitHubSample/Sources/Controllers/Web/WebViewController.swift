@@ -8,6 +8,8 @@
 
 import UIKit
 import WebKit
+import RxSwift
+import RxCocoa
 
 final class WebViewController: UIViewController, Storyboardable {
 
@@ -33,10 +35,11 @@ final class WebViewController: UIViewController, Storyboardable {
     private var progressView: UIProgressView = {
         let progressView = UIProgressView(progressViewStyle: .bar)
         progressView.transform = CGAffineTransform(scaleX: 1, y: Const.progressViewScaleY)
-        progressView.progress = 0.5
         progressView.translatesAutoresizingMaskIntoConstraints = false
         return progressView
     }()
+
+    private let disposeBag = DisposeBag()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,5 +68,25 @@ final class WebViewController: UIViewController, Storyboardable {
                 ])
         }
         webView.load(URLRequest(url: URL(string: urlStr)!))
+
+        webView.rx.observeWeakly(Double.self, "estimatedProgress")
+            .filterNil()
+            .bind(to: estimatedProgress)
+            .disposed(by: disposeBag)
+    }
+
+    private var estimatedProgress: AnyObserver<Double> {
+        return Binder(self) { (me, progress) in
+            if progress != 1 {
+                me.progressView.alpha = 1
+            } else {
+                UIView.animate(withDuration: 0.4, animations: {
+                    me.progressView.alpha = 0
+                }, completion: { _ in
+                    me.progressView.setProgress(0, animated: false)
+                })
+            }
+            me.progressView.setProgress(Float(progress), animated: true)
+        }.asObserver()
     }
 }
