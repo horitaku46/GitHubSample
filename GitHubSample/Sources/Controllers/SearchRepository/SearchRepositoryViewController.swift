@@ -35,8 +35,8 @@ final class SearchRepositoryViewController: UIViewController {
 
         dataSource.configure(tableView: tableView)
 
-        viewModel.firstFetchingRepositories
-            .bind(to: firstFetchingRepositories)
+        viewModel.isEmptyRepositories
+            .bind(to: isEmptyRepositories)
             .disposed(by: disposeBag)
 
         keyboardObserver.willShow
@@ -52,6 +52,7 @@ final class SearchRepositoryViewController: UIViewController {
             .disposed(by: disposeBag)
 
         viewModel.selectedRepository
+            .observeOn(MainScheduler.instance)
             .bind(to: showWeb)
             .disposed(by: disposeBag)
     }
@@ -74,7 +75,7 @@ final class SearchRepositoryViewController: UIViewController {
         }.asObserver()
     }
 
-    private var firstFetchingRepositories: AnyObserver<(Bool)> {
+    private var isEmptyRepositories: AnyObserver<Bool> {
         return Binder(self) { (me, isHidden) in
             me.searchRepositoryLoadingView.isHidden = isHidden
         }.asObserver()

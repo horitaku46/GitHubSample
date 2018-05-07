@@ -8,6 +8,7 @@
 
 import UIKit
 import RxSwift
+import RxCocoa
 import RxDataSources
 
 struct SearchRepositorySectionModel {
@@ -35,7 +36,8 @@ final class SearchRepositoryViewDataSource: NSObject {
 
     private enum Const {
         static let estimatedRowHeight: CGFloat = 100
-        static let contentInsetBottom: CGFloat = 150
+        static let firstContentInsetBottom: CGFloat = 100
+        static let lastContentInsetBottom: CGFloat = 0
     }
 
     let selectedIndexPath: AnyObserver<IndexPath>
@@ -54,7 +56,7 @@ final class SearchRepositoryViewDataSource: NSObject {
         tableView.estimatedRowHeight = Const.estimatedRowHeight
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.tableFooterView = UIView(frame: .zero)
-        tableView.contentInset.bottom = Const.contentInsetBottom
+        tableView.contentInset.bottom = Const.firstContentInsetBottom
         tableView.registerCell(SearchRepositoryCell.self)
 
         let dataSource = RxTableViewSectionedAnimatedDataSource<SearchRepositorySectionModel>(
@@ -70,6 +72,13 @@ final class SearchRepositoryViewDataSource: NSObject {
                 return .of([SearchRepositorySectionModel(repositories: repositories)])
             }
             .bind(to: tableView.rx.items(dataSource: dataSource))
+            .disposed(by: disposeBag)
+
+        viewModel.lastPageFetchingRepositories
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: {
+                tableView.contentInset.bottom = Const.lastContentInsetBottom
+            })
             .disposed(by: disposeBag)
 
         tableView.rx.itemSelected
