@@ -28,7 +28,8 @@ final class SearchRepositoryViewModel {
 
     private let isFetchingRepositories = BehaviorRelay<Bool>(value: true)
     private let page = BehaviorRelay<Int>(value: 1)
-    private var lastPage = BehaviorRelay<Int>(value: 0)
+    private let lastPage = BehaviorRelay<Int>(value: 0)
+
     private let disposeBag = DisposeBag()
 
     init(session: Session = .shared,
@@ -75,22 +76,26 @@ final class SearchRepositoryViewModel {
             .disposed(by: disposeBag)
 
         let query = searchTrigger
-            .debounce(0.7, scheduler: MainScheduler.instance)
             .filter { !$0.isEmpty }
             .share(replay: 1, scope: .whileConnected)
 
-        /// (query: String, Int: page, Bool: isAdditions Repository)
-        let requestWillStart = PublishSubject<(String, Int, Bool)>()
+        query
+            .map { _ in true }
+            .bind(to: isFetchingRepositories)
+            .disposed(by: disposeBag)
+
+        let requestWillStart = PublishSubject<(query: String, page: Int)>()
 
         query
-            .flatMap { [weak self] (query) -> Observable<(String, Int, Bool)> in
+            .flatMap { [weak self] (query) -> Observable<(query: String, page: Int)> in
                 guard let me = self else { return .empty() }
                 me.page.accept(1)
                 me.lastPage.accept(0)
-                return .of((query, me.page.value, false))
-        }
-        .bind(to: requestWillStart)
-        .disposed(by: disposeBag)
+                return .of((query, me.page.value))
+            }
+            .debounce(0.5, scheduler: MainScheduler.instance)
+            .bind(to: requestWillStart)
+            .disposed(by: disposeBag)
 
         reachedBottom
             .filter { [weak self] in
@@ -101,24 +106,18 @@ final class SearchRepositoryViewModel {
                 return !isFetching && !isEmpty && !isLast
             }
             .withLatestFrom(query)
-            .flatMap { [weak self] (query) -> Observable<(String, Int, Bool)> in
+            .flatMap { [weak self] (query) -> Observable<(query: String, page: Int)> in
                 guard let me = self else { return .empty() }
                 me.page.accept(me.page.value + 1)
-                return .of((query, me.page.value, true))
+                return .of((query, me.page.value))
             }
             .bind(to: requestWillStart)
             .disposed(by: disposeBag)
 
-        requestWillStart
-            .map { _ in true }
-            .bind(to: isFetchingRepositories)
-            .disposed(by: disposeBag)
-
-        /// (repository: [Repository], Bool: isAdditions Repository)
-        let response = PublishSubject<([Repository], Bool)>()
+        let response = PublishSubject<(repositories: [Repository], isFirstAdd: Bool)>()
 
         requestWillStart
-            .flatMapLatest { (query, page, isAdditions) -> Observable<([Repository], Bool)> in
+            .flatMapLatest { (query, page) -> Observable<(repositories: [Repository], isFirstAdd: Bool)> in
                 let request = GitHubAPI.SearchRepositories(query: query, page: page)
                 return session.rx
                     .response(request)
@@ -129,23 +128,24 @@ final class SearchRepositoryViewModel {
                         me._isEmptyRepositories.onNext(true)
                         return response
                     }
-                    .flatMap { [weak self] response -> Observable<([Repository], Bool)> in
+                    .flatMap { [weak self] response -> Observable<(repositories: [Repository], isFirstAdd: Bool)> in
                         guard let me = self else { return .just(([], false)) }
                         let isRemainder = response.totalCount % 30 != 0
                         let quotient = response.totalCount / 30
                         me.lastPage.accept(isRemainder ? quotient + 1 : quotient)
+                        let isFirstAdd = page == 1
                         me._isEmptyRepositories.onNext(true)
                         me.isFetchingRepositories.accept(false)
-                        return .of((response.repositories, isAdditions))
+                        return .of((response.repositories, isFirstAdd))
                 }
             }
             .bind(to: response)
             .disposed(by: disposeBag)
 
         response
-            .flatMap { [weak self] (repositories, isAdditions) -> Observable<[Repository]> in
+            .flatMap { [weak self] (repositories, isFirstAdd) -> Observable<[Repository]> in
                 guard let me = self else { return .just([]) }
-                return .of(isAdditions ? me._repositories.value + repositories : repositories)
+                return .of(isFirstAdd ? repositories : me._repositories.value + repositories)
             }
             .bind(to: _repositories)
             .disposed(by: disposeBag)
@@ -153,8 +153,12 @@ final class SearchRepositoryViewModel {
         response
             .withLatestFrom(query) { ($0, $1) }
             .filter { $0.0.0.isEmpty && !$0.1.isEmpty }
-            .map { _ in true }
-            .bind(to: _isEmptySearchResult)
+            .map { _ in }
+            .subscribe(onNext: { [weak self] in
+                guard let me = self else { return }
+                me._isEmptySearchResult.onNext(true)
+                me._repositories.accept([])
+            })
             .disposed(by: disposeBag)
 
         response
@@ -164,7 +168,6 @@ final class SearchRepositoryViewModel {
                 return me.page.value == me.lastPage.value
             }
             .bind(to: _lastPageFetchingRepositories)
-            .disposed(by: disposeBag
-        )
+            .disposed(by: disposeBag)
     }
 }
